@@ -8,8 +8,15 @@
 
 namespace Mpay;
 
-
-class SuccessResponse
+/**
+ * Successfully created transaction response.
+ *
+ * @package Mpay
+ */
+class SuccessResponse extends Response
 {
-
+    public function getTransactionId()
+    {
+        return $this->data[self::F_TRANSACTION_ID];
+    }
 }
