@@ -27,7 +27,7 @@ class Response
     const F_TIMESTAMP = 'timestamp';
     const F_SIGNATURE = 'signature';
 
-    private $data;
+    protected $data;
 
     public function __construct($content)
     {
