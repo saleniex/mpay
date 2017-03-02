@@ -10,6 +10,11 @@
             "homepage": "https://github.com/saleniex/mpay"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "\\": "src/"
+        }
+    },
     "require": {
         "guzzlehttp/guzzle": "^6.2"
     }
