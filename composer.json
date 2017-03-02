@@ -1,4 +1,6 @@
 {
+    "name": "mobilly/mpay",
+    "description": "Mobilly MPAY connection library.",
     "require": {
         "guzzlehttp/guzzle": "^6.2"
     }
