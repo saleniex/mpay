@@ -15,7 +15,7 @@ class Connector
     /**
      * @var Client
      */
-    private $client;
+    protected $client;
 
     /**
      * @var string
