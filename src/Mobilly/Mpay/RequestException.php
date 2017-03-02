@@ -6,7 +6,7 @@
  * Time: 14:10
  */
 
-namespace Mpay;
+namespace Mobilly\Mpay;
 
 
 class RequestException extends \Exception

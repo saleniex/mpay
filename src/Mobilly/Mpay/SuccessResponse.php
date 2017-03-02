@@ -6,7 +6,7 @@
  * Time: 16:46
  */
 
-namespace Mpay;
+namespace Mobilly\Mpay;
 
 /**
  * Successfully created transaction response.

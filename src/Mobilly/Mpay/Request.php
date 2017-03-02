@@ -6,7 +6,7 @@
  * Time: 16:16
  */
 
-namespace Mpay;
+namespace Mobilly\Mpay;
 
 
 class Request

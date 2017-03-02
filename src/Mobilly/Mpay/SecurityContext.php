@@ -6,7 +6,7 @@
  * Time: 14:54
  */
 
-namespace Mpay;
+namespace Mobilly\Mpay;
 
 /**
  * Security context for message signing and verification.

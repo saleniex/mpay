@@ -6,7 +6,7 @@
  * Time: 16:17
  */
 
-namespace Mpay;
+namespace Mobilly\Mpay;
 
 use GuzzleHttp\Client;
 

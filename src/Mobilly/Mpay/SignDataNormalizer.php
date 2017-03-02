@@ -6,7 +6,7 @@
  * Time: 16:01
  */
 
-namespace Mpay;
+namespace Mobilly\Mpay;
 
 
 /**
