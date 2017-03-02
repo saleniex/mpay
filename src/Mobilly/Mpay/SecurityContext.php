@@ -1,17 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uldis
- * Date: 17.28.2
- * Time: 14:54
- */
 
 namespace Mobilly\Mpay;
 
 /**
  * Security context for message signing and verification.
- *
- * @package Mpay
+ * @package Mobilly\Mpay
  */
 class SecurityContext
 {

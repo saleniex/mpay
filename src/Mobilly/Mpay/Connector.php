@@ -1,15 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uldis
- * Date: 17.24.2
- * Time: 16:17
- */
 
 namespace Mobilly\Mpay;
 
 use GuzzleHttp\Client;
 
+/**
+ * Connector to Mpay service.
+ * @package Mobilly\Mpay
+ */
 class Connector
 {
     const SERVICE_ENDPOINT = 'https://mpay.mobilly.lv';

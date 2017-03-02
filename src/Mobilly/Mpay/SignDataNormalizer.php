@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uldis
- * Date: 17.28.2
- * Time: 16:01
- */
 
 namespace Mobilly\Mpay;
 
@@ -12,7 +6,7 @@ namespace Mobilly\Mpay;
 /**
  * Sign data normalizer.
  *
- * @package Mpay
+ * @package Mobilly\Mpay
  */
 class SignDataNormalizer
 {

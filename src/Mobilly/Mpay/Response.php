@@ -1,15 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uldis
- * Date: 17.24.2
- * Time: 16:17
- */
 
 namespace Mobilly\Mpay;
 
-
-class Response
+/**
+ * Abstract response.
+ * @package Mobilly\Mpay
+ */
+abstract class Response
 {
     const ERR_DATA_VALIDATION = 100;
     const ERR_SERVICE_NOT_FOUND = 101;

@@ -1,14 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uldis
- * Date: 17.24.2
- * Time: 16:16
- */
 
 namespace Mobilly\Mpay;
 
-
+/**
+ * Request object.
+ * @package Mobilly\Mpay
+ */
 class Request
 {
     const F_SERVICE_ID = 'service_id';

@@ -1,14 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uldis
- * Date: 17.24.2
- * Time: 16:17
- */
 
 namespace Mobilly\Mpay;
 
 
+/**
+ * Signer.
+ * @package Mobilly\Mpay
+ */
 class Signer
 {
     private $privateKey;

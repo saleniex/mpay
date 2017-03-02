@@ -1,14 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uldis
- * Date: 17.28.2
- * Time: 15:36
- */
 
 namespace Mobilly\Mpay;
 
-
+/**
+ * Generic response exception.
+ * @package Mobilly\Mpay
+ */
 class ResponseException extends \Exception
 {
 
