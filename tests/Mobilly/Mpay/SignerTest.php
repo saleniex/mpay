@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uldis
- * Date: 17.2.3
- * Time: 12:43
- */
 
 namespace Tests\Mobilly\Mpay;
 
