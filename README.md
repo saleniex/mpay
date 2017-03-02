@@ -4,8 +4,6 @@ Mobilly MPay service integration library.
 # Download via packagist.org
 
 ```
-#!sh
-
 $ composer require mobilly/mpay
 ```
 On how to use Composer please see following [link](https://getcomposer.org/download/).
@@ -55,8 +53,6 @@ exit();
 # Private/public key creation
 
 ```
-#!sh
-
 $ openssl genrsa -out private.pem -aes256 4096
 $ openssl rsa -pubout -in private.pem -out public.pem
 ```
