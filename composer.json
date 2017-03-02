@@ -1,6 +1,15 @@
 {
     "name": "mobilly/mpay",
     "description": "Mobilly MPAY connection library.",
+    "homepage": "http://mobilly.lv/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Uldis Jansons",
+            "email": "uj@mobilly.lv",
+            "homepage": "https://github.com/saleniex/mpay"
+        }
+    ],
     "require": {
         "guzzlehttp/guzzle": "^6.2"
     }
