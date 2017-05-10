@@ -23,14 +23,15 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             ->setResultUrl('http://mobilly.lv/result')
             ->setReturnUrl('http://mobilly.lv/return')
             ->setServiceId(678)
-            ->setSummary('Test transaction');
+            ->setSummary('Test transaction')
+            ->setPostProcessor('PostProcessor', '{"param1":"val1"}');
 
         $data = $request->get();
 
         $this->assertEquals(123, $data['amount']);
         $this->assertEquals('EUR', $data['currency']);
-        $this->assertEquals('Firstname', $data['first_name']);
-        $this->assertEquals('Lastname', $data['last_name']);
+        $this->assertEquals('Firstname', $data['firstname']);
+        $this->assertEquals('Lastname', $data['lastname']);
         $this->assertEquals('user@mobilly.lv', $data['email']);
         $this->assertEquals('http://mobilly.lv/result', $data['result_url']);
         $this->assertEquals('http://mobilly.lv/return', $data['return_url']);
@@ -38,5 +39,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Test transaction', $data['summary']);
         $this->assertTrue((new \DateTime()) >= (new \DateTime($data['timestamp'])));
         $this->assertTrue( ! empty($data['signature']));
+        $this->assertEquals('PostProcessor', $data['post_processor']);
+        $this->assertEquals('{"param1":"val1"}', $data['post_process_data']);
     }
 }
