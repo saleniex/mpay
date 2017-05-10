@@ -14,8 +14,8 @@ class Request
     const F_SUMMARY = 'summary';
     const F_RETURN_URL = 'return_url';
     const F_RESULT_URL = 'result_url';
-    const F_FIRST_NAME = 'first_name';
-    const F_LAST_NAME = 'last_name';
+    const F_FIRST_NAME = 'firstname';
+    const F_LAST_NAME = 'lastname';
     const F_EMAIL = 'email';
     const F_USER = 'user';
     const F_TIMESTAMP = 'timestamp';
