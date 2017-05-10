@@ -20,6 +20,8 @@ class Request
     const F_USER = 'user';
     const F_TIMESTAMP = 'timestamp';
     const F_SIGNATURE = 'signature';
+    const F_POST_PROCESSOR = 'post_processor';
+    const F_POST_PROCESS_DATA = 'post_process_data';
 
     const DEFAULT_CURRENCY = 'EUR';
 
@@ -154,6 +156,24 @@ class Request
         $this->data[self::F_FIRST_NAME] = $firstName;
         $this->data[self::F_LAST_NAME] = $lastName;
         $this->data[self::F_EMAIL] = $email;
+
+        return $this;
+    }
+
+    /**
+     * Set post processor.
+     *
+     * For more details about post processor usage please contact dev@mobilly.lv     *
+     *
+     * @param string $postProcessor Post processor name.
+     * @param string $postProcessData Post process data passed to post processor when executed.
+     *
+     * @return $this
+     */
+    public function setPostProcessor($postProcessor, $postProcessData)
+    {
+        $this->data[self::F_POST_PROCESSOR] = $postProcessor;
+        $this->data[self::F_POST_PROCESS_DATA] = $postProcessData;
 
         return $this;
     }
