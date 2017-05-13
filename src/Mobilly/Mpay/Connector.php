@@ -3,7 +3,6 @@
 namespace Mobilly\Mpay;
 
 use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Connector to Mpay service.
@@ -28,8 +27,8 @@ class Connector
      */
     private $context;
 
-    /** @var  ResponseInterface */
-    private $lastResponse;
+    /** @var  string */
+    private $lastResponseContent;
 
 
     public function __construct(SecurityContext $context, $serviceEndpoint = self::SERVICE_ENDPOINT)
@@ -41,17 +40,17 @@ class Connector
 
     public function send(Request $request)
     {
-        $this->lastResponse = $this->getHttpClient()->post($this->serviceEndpoint, [
+        $response = $this->getHttpClient()->post($this->serviceEndpoint, [
             'body' => $request->getJson(),
         ]);
 
-        $content = $this->lastResponse->getBody()->getContents();
+        $this->lastResponseContent = $response->getBody()->getContents();
 
-        if (201 != $this->lastResponse->getStatusCode()) {
-            return new ErrorResponse($content);
+        if (201 != $response->getStatusCode()) {
+            return new ErrorResponse($this->lastResponseContent);
         }
 
-        $data = json_decode($content, true);
+        $data = json_decode($this->lastResponseContent, true);
         $signature = $data[Response::F_SIGNATURE];
         unset($data[Response::F_SIGNATURE]);
 
@@ -60,13 +59,13 @@ class Connector
             throw new ResponseException('Invalid response signature.');
         }
 
-        return new SuccessResponse($content);
+        return new SuccessResponse($this->lastResponseContent);
     }
 
 
     public function getLastResponse()
     {
-        return $this->lastResponse;
+        return $this->lastResponseContent;
     }
 
 
