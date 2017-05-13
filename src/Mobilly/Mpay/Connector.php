@@ -3,6 +3,7 @@
 namespace Mobilly\Mpay;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Connector to Mpay service.
@@ -27,6 +28,9 @@ class Connector
      */
     private $context;
 
+    /** @var  ResponseInterface */
+    private $lastResponse;
+
 
     public function __construct(SecurityContext $context, $serviceEndpoint = self::SERVICE_ENDPOINT)
     {
@@ -37,13 +41,13 @@ class Connector
 
     public function send(Request $request)
     {
-        $response = $this->getHttpClient()->post($this->serviceEndpoint, [
+        $this->lastResponse = $this->getHttpClient()->post($this->serviceEndpoint, [
             'body' => $request->getJson(),
         ]);
 
-        $content = $response->getBody()->getContents();
+        $content = $this->lastResponse->getBody()->getContents();
 
-        if (201 != $response->getStatusCode()) {
+        if (201 != $this->lastResponse->getStatusCode()) {
             return new ErrorResponse($content);
         }
 
@@ -58,6 +62,13 @@ class Connector
 
         return new SuccessResponse($content);
     }
+
+
+    public function getLastResponse()
+    {
+        return $this->lastResponse;
+    }
+
 
     protected function getHttpClient()
     {
