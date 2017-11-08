@@ -22,6 +22,7 @@ class Request
     const F_SIGNATURE = 'signature';
     const F_POST_PROCESSOR = 'post_processor';
     const F_POST_PROCESS_DATA = 'post_process_data';
+    const F_LANGUAGE = 'language';
 
     const DEFAULT_CURRENCY = 'EUR';
 
@@ -176,5 +177,15 @@ class Request
         $this->data[self::F_POST_PROCESS_DATA] = $postProcessData;
 
         return $this;
+    }
+
+    /**
+     * Set language for Mpay UI.
+     *
+     * @param string $language ISO 639-1
+     */
+    public function setLanguage($language)
+    {
+        $this->data[self::F_LANGUAGE] = $language;
     }
 }
