@@ -10,7 +10,8 @@ use GuzzleHttp\Client;
  */
 class Connector
 {
-    const SERVICE_ENDPOINT = 'https://mpay.mobilly.lv';
+    const SERVICE_ENDPOINT = 'https://mpay.mobilly.lv/transaction';
+    const SERVICE_ENDPOINT_TEST = 'http://mpay.test.mobilly.lv/transaction';
 
     /**
      * @var Client
