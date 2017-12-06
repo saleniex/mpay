@@ -25,6 +25,7 @@ $mpayUser = 'mpayuser';
 $privateKey = './private.pem';
 $privateKeySecret = 'SuperSecretPrivateKeySecret';
 $publicKey = './mpay-public.pem';
+$endpoint = 'http://mpay.test.mobilly.lv'; // In production: "https://mpay.mobilly.lv"
 
 $context = new SecurityContext($mpayUser, $privateKey, $privateKeySecret, $publicKey);
 
@@ -35,9 +36,10 @@ $request
     ->setServiceId(100)
     ->setResultUrl('https://mydomain.com/result')
     ->setReturnUrl('https://mydomain.com/return')
-    ->setContacts('John', 'Doe', 'john@doe.com');
+    ->setContacts('John', 'Doe', 'john@doe.com')
+    ->setLanguage('en');
     
-$connector = new Connector($context);
+$connector = new Connector($context, $endpoint . '/transaction');
 $response = $connector->send($request);
 
 if ( ! $response instanceof SuccessResponse) {
@@ -46,7 +48,7 @@ if ( ! $response instanceof SuccessResponse) {
 
 $transactionId = $response->getTransactionId();
 
-header("Location: https://mpay.mobilly.lv?transid=" . $transactionId);
+header("Location: " . $endpoint . "?transid=" . $transactionId);
 exit();
 ```
 
