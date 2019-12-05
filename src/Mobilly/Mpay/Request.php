@@ -2,6 +2,8 @@
 
 namespace Mobilly\Mpay;
 
+use Exception;
+
 /**
  * Request object.
  * @package Mobilly\Mpay
@@ -23,6 +25,7 @@ class Request
     const F_POST_PROCESSOR = 'post_processor';
     const F_POST_PROCESS_DATA = 'post_process_data';
     const F_LANGUAGE = 'language';
+    const F_OPTIONS = 'options';
 
     const DEFAULT_CURRENCY = 'EUR';
 
@@ -41,6 +44,7 @@ class Request
 
     /**
      * @return array
+     * @throws Exception In case of sign error
      */
     public function get()
     {
@@ -55,6 +59,7 @@ class Request
 
     /**
      * @return string
+     * @throws Exception In case of sign error
      */
     public function getJson()
     {
@@ -187,5 +192,11 @@ class Request
     public function setLanguage($language)
     {
         $this->data[self::F_LANGUAGE] = $language;
+    }
+
+
+    public function setOptions($options)
+    {
+        $this->data[self::F_OPTIONS] = $options;
     }
 }
