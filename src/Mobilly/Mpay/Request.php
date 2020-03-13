@@ -64,16 +64,11 @@ class Request
     /**
      * Set Mobilly service ID (provided by Mobilly).
      *
-     * @param $serviceId
+     * @param string $serviceId
      * @return $this
-     * @throws RequestException
      */
     public function setServiceId($serviceId)
     {
-        if ( ! is_integer($serviceId)) {
-            throw new RequestException(sprintf('Service id should be integer "%s" given.', $serviceId));
-        }
-
         $this->data[self::F_SERVICE_ID] = $serviceId;
 
         return $this;
