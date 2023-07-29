@@ -1,7 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mobilly\Mpay;
 
+
+use Exception;
 
 /**
  * Sign data normalizer.
@@ -10,7 +12,12 @@ namespace Mobilly\Mpay;
  */
 class SignDataNormalizer
 {
-    public function normalize($data)
+    /**
+     * @param $data
+     * @return string
+     * @throws Exception In case of invalid data, e.g. contains something that is not array, string or int
+     */
+    public function normalize($data): string
     {
         if (is_string($data)) {
             return $data;
@@ -20,7 +27,7 @@ class SignDataNormalizer
             return $this->concat($data);
         }
 
-        throw new \Exception('Cannot normalize data if not either string of array');
+        throw new Exception('Cannot normalize data if not either string of array');
     }
 
     /**
@@ -29,14 +36,14 @@ class SignDataNormalizer
      * @param array $data Data to concat.
      * @return string
      *
-     * @throws \Exception In case of invalid data.
+     * @throws Exception In case of invalid data.
      */
-    private function concat(array $data)
+    private function concat(array $data): string
     {
         $result = '';
         foreach ($data as $item) {
             if ( ! is_array($item) && ! is_string($item) && ! is_numeric($item)) {
-                throw new \Exception('Cannot normalize data as it contains something except string and array.');
+                throw new Exception('Cannot normalize data as it contains something except string and array.');
             }
             if ($result) {
                 $result .= '.';

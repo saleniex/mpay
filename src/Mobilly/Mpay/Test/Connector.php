@@ -1,25 +1,27 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mobilly\Mpay\Test;
 
 
+use GuzzleHttp\Handler\MockHandler;
+
 class Connector extends \Mobilly\Mpay\Connector
 {
-    private $responseContent;
+    private string $responseContent = '';
 
-    private $statusCode;
+    private int $statusCode = 200;
 
-    protected function getHttpClient()
+
+    protected function getHttpClient(): \GuzzleHttp\Client
     {
-        return new Client($this->responseContent, $this->statusCode);
+        $mockHandler = new MockHandler([
+            new \GuzzleHttp\Psr7\Response($this->statusCode, [], $this->responseContent),
+        ]);
+        return new \GuzzleHttp\Client(['handler' => $mockHandler]);
     }
 
-    /**
-     * @param $content
-     * @param $code
-     * @internal param mixed $responseContent
-     */
-    public function setResponse($content, $code)
+
+    public function setResponse(string $content, int $code): void
     {
         $this->responseContent = $content;
         $this->statusCode = $code;

@@ -1,15 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Tests\Mobilly\Mpay;
+namespace Mobilly\Mpay;
 
-require_once 'src/Mobilly/Mpay/SecurityContext.php';
-require_once 'src/Mobilly/Mpay/Signer.php';
-
-use Mobilly\Mpay\SecurityContext;
-use Mobilly\Mpay\Signer;
+use PHPUnit\Framework\TestCase;
 
 
-class SecurityContextTest extends \PHPUnit_Framework_TestCase
+class SecurityContextTest extends TestCase
 {
     public function testGetUser()
     {

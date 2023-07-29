@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mobilly\Mpay;
 
@@ -8,12 +8,12 @@ namespace Mobilly\Mpay;
  */
 class SecurityContext
 {
-    private $mpayUser;
-    private $privateKey;
-    private $privateKeySecret;
-    private $publicKey;
+    private string $mpayUser;
+    private string $privateKey;
+    private string $privateKeySecret;
+    private string $publicKey;
 
-    public function __construct($mpayUser, $privateKey, $privateKeySecret, $publicKey)
+    public function __construct(string $mpayUser, string $privateKey, string $privateKeySecret, string $publicKey)
     {
         $this->mpayUser = $mpayUser;
         $this->privateKey = $privateKey;
@@ -21,12 +21,12 @@ class SecurityContext
         $this->publicKey = $publicKey;
     }
 
-    public function getSigner()
+    public function getSigner(): Signer
     {
         return new Signer($this->privateKey, $this->privateKeySecret, $this->publicKey);
     }
 
-    public function getUser()
+    public function getUser(): string
     {
         return $this->mpayUser;
     }

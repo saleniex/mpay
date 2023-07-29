@@ -1,27 +1,25 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Tests\Mobilly\Mpay;
-
-require_once 'src/Mobilly/Mpay/Request.php';
-require_once 'src/Mobilly/Mpay/SecurityContext.php';
-require_once 'src/Mobilly/Mpay/RequestException.php';
+namespace Mobilly\Mpay;
 
 
-use Mobilly\Mpay\Request;
-use Mobilly\Mpay\SecurityContext;
+use DateTime;
+use PHPUnit\Framework\TestCase;
 
 
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
     public function testGet()
     {
-        $context = new SecurityContext('testuser', 'tests/private.pem', 'test', 'tests/public.pem');
+        $privateKeyPath = dirname(__FILE__, 3) . '/private.pem';
+        $publicKeyPath = dirname(__FILE__, 3) . '/public.pem';
+        $context = new SecurityContext('testuser', $privateKeyPath, 'test', $publicKeyPath);
         $request = new Request($context);
         $request
             ->setAmount(123)
             ->setContacts('Firstname', 'Lastname', 'user@mobilly.lv')
-            ->setResultUrl('http://mobilly.lv/result')
-            ->setReturnUrl('http://mobilly.lv/return')
+            ->setResultUrl('https://mobilly.lv/result')
+            ->setReturnUrl('https://mobilly.lv/return')
             ->setServiceId(678)
             ->setSummary('Test transaction')
             ->setPostProcessor('PostProcessor', '{"param1":"val1"}');
@@ -33,12 +31,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Firstname', $data['firstname']);
         $this->assertEquals('Lastname', $data['lastname']);
         $this->assertEquals('user@mobilly.lv', $data['email']);
-        $this->assertEquals('http://mobilly.lv/result', $data['result_url']);
-        $this->assertEquals('http://mobilly.lv/return', $data['return_url']);
+        $this->assertEquals('https://mobilly.lv/result', $data['result_url']);
+        $this->assertEquals('https://mobilly.lv/return', $data['return_url']);
         $this->assertEquals(678, $data['service_id']);
         $this->assertEquals('Test transaction', $data['summary']);
-        $this->assertTrue((new \DateTime()) >= (new \DateTime($data['timestamp'])));
-        $this->assertTrue( ! empty($data['signature']));
+        $this->assertTrue((new DateTime()) >= (new DateTime($data['timestamp'])));
+        $this->assertNotEmpty($data['signature']);
         $this->assertEquals('PostProcessor', $data['post_processor']);
         $this->assertEquals('{"param1":"val1"}', $data['post_process_data']);
     }

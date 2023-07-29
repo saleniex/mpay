@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mobilly\Mpay;
 
@@ -29,12 +29,9 @@ class Request
 
     const DEFAULT_CURRENCY = 'EUR';
 
-    private $data = [];
+    private array $data = [];
 
-    /**
-     * @var SecurityContext
-     */
-    private $context;
+    private SecurityContext $context;
 
 
     public function __construct(SecurityContext $context)
@@ -46,7 +43,7 @@ class Request
      * @return array
      * @throws Exception In case of sign error
      */
-    public function get()
+    public function get(): array
     {
         $signer = $this->context->getSigner();
 
@@ -58,10 +55,10 @@ class Request
     }
 
     /**
-     * @return string
+     * @return ?string
      * @throws Exception In case of sign error
      */
-    public function getJson()
+    public function getJson(): ?string
     {
         return json_encode($this->get());
     }
@@ -69,10 +66,10 @@ class Request
     /**
      * Set Mobilly service ID (provided by Mobilly).
      *
-     * @param string $serviceId
+     * @param int $serviceId
      * @return $this
      */
-    public function setServiceId($serviceId)
+    public function setServiceId(int $serviceId): static
     {
         $this->data[self::F_SERVICE_ID] = $serviceId;
 
@@ -88,11 +85,8 @@ class Request
      * @return $this
      * @throws RequestException
      */
-    public function setAmount($amount, $currency = self::DEFAULT_CURRENCY)
+    public function setAmount(int $amount, string $currency = self::DEFAULT_CURRENCY): static
     {
-        if ( ! is_integer($amount)) {
-            throw new RequestException(sprintf('Amount should be integer "%s" given.', $amount));
-        }
         if ( ! is_string($currency) || 3 != strlen($currency)) {
             throw new RequestException(sprintf('Currency should comply with ISO4217 "%s" given.', $currency));
         }
@@ -110,7 +104,7 @@ class Request
      * @param string $summary
      * @return $this
      */
-    public function setSummary($summary)
+    public function setSummary(string $summary): static
     {
         $this->data[self::F_SUMMARY] = $summary;
 
@@ -123,7 +117,7 @@ class Request
      * @param string $url URL where browser should be redirected after transaction processing.
      * @return $this
      */
-    public function setReturnUrl($url)
+    public function setReturnUrl(string $url): static
     {
         $this->data[self::F_RETURN_URL] = $url;
 
@@ -136,7 +130,7 @@ class Request
      * @param string $url URL where Mpay will send transaction result.
      * @return $this
      */
-    public function setResultUrl($url)
+    public function setResultUrl(string $url): static
     {
         $this->data[self::F_RESULT_URL] = $url;
 
@@ -152,7 +146,7 @@ class Request
      *
      * @return $this
      */
-    public function setContacts($firstName, $lastName, $email)
+    public function setContacts(string $firstName, string $lastName, string $email): static
     {
         $this->data[self::F_FIRST_NAME] = $firstName;
         $this->data[self::F_LAST_NAME] = $lastName;
@@ -171,7 +165,7 @@ class Request
      *
      * @return $this
      */
-    public function setPostProcessor($postProcessor, $postProcessData)
+    public function setPostProcessor(string $postProcessor, string $postProcessData): static
     {
         $this->data[self::F_POST_PROCESSOR] = $postProcessor;
         $this->data[self::F_POST_PROCESS_DATA] = $postProcessData;
@@ -184,13 +178,13 @@ class Request
      *
      * @param string $language ISO 639-1
      */
-    public function setLanguage($language)
+    public function setLanguage(string $language): void
     {
         $this->data[self::F_LANGUAGE] = $language;
     }
 
 
-    public function setOptions($options)
+    public function setOptions(string $options): void
     {
         $this->data[self::F_OPTIONS] = $options;
     }

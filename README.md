@@ -25,7 +25,7 @@ $mpayUser = 'mpayuser';
 $privateKey = './private.pem';
 $privateKeySecret = 'SuperSecretPrivateKeySecret';
 $publicKey = './mpay-public.pem';
-$endpoint = 'http://mpay.test.mobilly.lv'; // In production: "https://mpay.mobilly.lv"
+$endpoint = 'https://mpay-test.mobilly.lv'; // In production: "https://mpay.mobilly.lv"
 
 $context = new SecurityContext($mpayUser, $privateKey, $privateKeySecret, $publicKey);
 

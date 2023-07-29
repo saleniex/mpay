@@ -1,13 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Tests\Mobilly\Mpay;
+namespace Mobilly\Mpay;
 
-require_once 'src/Mobilly/Mpay/Response.php';
-require_once 'src/Mobilly/Mpay/SuccessResponse.php';
+use PHPUnit\Framework\TestCase;
 
-use Mobilly\Mpay\SuccessResponse;
-
-class SuccessResponseTest extends \PHPUnit_Framework_TestCase
+class SuccessResponseTest extends TestCase
 {
     public function testGetTransactionId()
     {

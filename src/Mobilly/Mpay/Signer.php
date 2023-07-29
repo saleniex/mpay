@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mobilly\Mpay;
+
+use Exception;
 
 /**
  * Signer.
@@ -8,11 +10,11 @@ namespace Mobilly\Mpay;
  */
 class Signer
 {
-    private $privateKey;
-    private $privateKeySecret;
-    private $publicKey;
+    private string $privateKey;
+    private string $privateKeySecret;
+    private string $publicKey;
 
-    public function __construct($privateKey, $privateKeySecret, $publicKey)
+    public function __construct(string $privateKey, string $privateKeySecret, string $publicKey)
     {
         $this->privateKey = $privateKey;
         $this->privateKeySecret = $privateKeySecret;
@@ -26,15 +28,18 @@ class Signer
      *
      * @return string Base64 encoded signature
      *
-     * @throws \Exception In case of sign error.
+     * @throws Exception In case of sign error.
      */
-    public function sign(array $data)
+    public function sign(array $data): string
     {
         $dataNormalizer = new SignDataNormalizer();
 
         $privateKey = openssl_pkey_get_private('file://' . $this->privateKey, $this->privateKeySecret);
         if (false === $privateKey) {
-            throw new \Exception(sprintf('Cannot sign. Cannot open private key "%s" with pass "%s".', $this->privateKey, $this->privateKeySecret));
+            throw new Exception(sprintf(
+                'Cannot sign. Cannot open private key "%s" with pass "%s".',
+                $this->privateKey,
+                $this->privateKeySecret));
         }
 
         $signature = null;
@@ -44,8 +49,8 @@ class Signer
             $privateKey,
             OPENSSL_ALGO_SHA256);
 
-        if ( ! $result) {
-            throw new \Exception(sprintf('Error while signing data "%s".', $data));
+        if ( ! $result || $signature === null) {
+            throw new Exception(sprintf('Error while signing data "%s".', json_encode($data)));
         }
 
         return base64_encode($signature);
@@ -59,15 +64,15 @@ class Signer
      *
      * @return bool TRUE if signature is valid.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function verify(array $data, $signature)
+    public function verify(array $data, string $signature): bool
     {
         $dataNormalizer = new SignDataNormalizer();
 
         $publicKey = openssl_pkey_get_public('file://' . $this->publicKey);
         if (false === $publicKey) {
-            throw new \Exception(sprintf('Cannot verify signature. Cannot open public key "%s".', $this->publicKey));
+            throw new Exception(sprintf('Cannot verify signature. Cannot open public key "%s".', $this->publicKey));
         }
 
         $binSignature = base64_decode($signature);
@@ -78,7 +83,7 @@ class Signer
             OPENSSL_ALGO_SHA256);
 
         if (0 > $result) {
-            throw new \Exception(sprintf('Error while verifying signature for "%s".', $data));
+            throw new Exception(sprintf('Error while verifying signature for "%s".', json_encode($data)));
         }
 
         return 1 === $result;

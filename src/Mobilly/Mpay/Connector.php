@@ -1,8 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mobilly\Mpay;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Connector to Mpay service.
@@ -11,26 +13,16 @@ use GuzzleHttp\Client;
 class Connector
 {
     const SERVICE_ENDPOINT = 'https://mpay.mobilly.lv/transaction';
-    const SERVICE_ENDPOINT_TEST = 'http://mpay.test.mobilly.lv/transaction';
+    const SERVICE_ENDPOINT_TEST = 'https://mpay-test.mobilly.lv/transaction';
 
-    /**
-     * @var Client
-     */
-    protected $client;
 
-    /**
-     * @var string
-     */
-    private $serviceEndpoint;
+    protected ?Client $client = null;
 
-    /**
-     * @var SecurityContext
-     */
-    private $context;
+    private string $serviceEndpoint;
 
-    /** @var  string */
-    private $lastResponseContent;
+    private SecurityContext $context;
 
+    private string $lastResponseContent;
 
     public function __construct(SecurityContext $context, $serviceEndpoint = self::SERVICE_ENDPOINT)
     {
@@ -39,11 +31,19 @@ class Connector
     }
 
 
-    public function send(Request $request)
+    public function send(Request $request): SuccessResponse|ErrorResponse
     {
-        $response = $this->getHttpClient()->post($this->serviceEndpoint, [
-            'body' => $request->getJson(),
-        ]);
+        try {
+            $response = $this->getHttpClient()->post($this->serviceEndpoint, [
+                'body' => $request->getJson(),
+            ]);
+
+        } catch (Exception $e) {
+            return ErrorResponse::withMessage($e->getMessage());
+
+        } catch (GuzzleException $e) {
+            return ErrorResponse::withMessage($e->getMessage());
+        }
 
         $this->lastResponseContent = $response->getBody()->getContents();
 
@@ -56,21 +56,19 @@ class Connector
         unset($data[Response::F_SIGNATURE]);
 
         $signer = $this->context->getSigner();
-        if ( ! $signer->verify($data, $signature)) {
-            throw new ResponseException('Invalid response signature.');
+        try {
+            if ( ! $signer->verify($data, $signature)) {
+                return ErrorResponse::withMessage('Invalid response signature.');
+            }
+        } catch (Exception $e) {
+            return ErrorResponse::withMessage($e->getMessage());
         }
 
         return new SuccessResponse($this->lastResponseContent);
     }
 
 
-    public function getLastResponse()
-    {
-        return $this->lastResponseContent;
-    }
-
-
-    protected function getHttpClient()
+    protected function getHttpClient(): Client
     {
         if ( ! $this->client) {
             $this->client = new Client();

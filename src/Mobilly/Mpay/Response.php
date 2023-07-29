@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mobilly\Mpay;
 
@@ -26,9 +26,8 @@ abstract class Response
 
     protected $data;
 
-    public function __construct($content)
+    public function __construct(string $content)
     {
         $this->data = json_decode($content, true);
     }
-
 }

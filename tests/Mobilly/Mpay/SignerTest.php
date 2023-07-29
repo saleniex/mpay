@@ -1,18 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Tests\Mobilly\Mpay;
+namespace Mobilly\Mpay;
 
-require_once 'src/Mobilly/Mpay/Signer.php';
-
-use Mobilly\Mpay\Signer;
+use PHPUnit\Framework\TestCase;
 
 
-class SignerTest extends \PHPUnit_Framework_TestCase
+class SignerTest extends TestCase
 {
-    private $data;
-    private $signature;
+    private array $data;
+    private string $signature;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->data = [
             'a' => 'A',
@@ -27,7 +25,9 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 
     public function testSign()
     {
-        $signer = new Signer('tests/private.pem', 'test', 'tests/public.pem');
+        $privateKeyPath = dirname(__FILE__, 3) . '/private.pem';
+        $publicKeyPath = dirname(__FILE__, 3) . '/public.pem';
+        $signer = new Signer($privateKeyPath, 'test', $publicKeyPath);
         $signature = $signer->sign($this->data);
         $this->assertEquals(
             $this->signature,
@@ -36,7 +36,9 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 
     public function testVerify()
     {
-        $signer = new Signer('tests/private.pem', 'test', 'tests/public.pem');
+        $privateKeyPath = dirname(__FILE__, 3) . '/private.pem';
+        $publicKeyPath = dirname(__FILE__, 3) . '/public.pem';
+        $signer = new Signer($privateKeyPath, 'test', $publicKeyPath);
         $this->assertTrue($signer->verify($this->data, $this->signature));
     }
 }

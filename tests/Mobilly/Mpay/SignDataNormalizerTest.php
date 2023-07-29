@@ -1,13 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Tests\Mobilly\Mpay;
+namespace Mobilly\Mpay;
 
-require_once 'src/Mobilly/Mpay/SignDataNormalizer.php';
-
-use Mobilly\Mpay\SignDataNormalizer;
+use PHPUnit\Framework\TestCase;
 
 
-class SignDataNormalizerTest extends \PHPUnit_Framework_TestCase
+class SignDataNormalizerTest extends TestCase
 {
     public function testNormalize()
     {
