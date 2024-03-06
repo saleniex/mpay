@@ -12,8 +12,8 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class Connector
 {
-    const SERVICE_ENDPOINT = 'https://mpay.mobilly.lv/transaction';
-    const SERVICE_ENDPOINT_TEST = 'https://mpay-test.mobilly.lv/transaction';
+    const string SERVICE_ENDPOINT = 'https://mpay.mobilly.lv/transaction';
+    const string SERVICE_ENDPOINT_TEST = 'https://mpay-test.mobilly.lv/transaction';
 
 
     protected ?Client $client = null;

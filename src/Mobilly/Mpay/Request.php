@@ -10,24 +10,24 @@ use Exception;
  */
 class Request
 {
-    const F_SERVICE_ID = 'service_id';
-    const F_AMOUNT = 'amount';
-    const F_CURRENCY = 'currency';
-    const F_SUMMARY = 'summary';
-    const F_RETURN_URL = 'return_url';
-    const F_RESULT_URL = 'result_url';
-    const F_FIRST_NAME = 'firstname';
-    const F_LAST_NAME = 'lastname';
-    const F_EMAIL = 'email';
-    const F_USER = 'user';
-    const F_TIMESTAMP = 'timestamp';
-    const F_SIGNATURE = 'signature';
-    const F_POST_PROCESSOR = 'post_processor';
-    const F_POST_PROCESS_DATA = 'post_process_data';
-    const F_LANGUAGE = 'language';
-    const F_OPTIONS = 'options';
+    const string F_SERVICE_ID = 'service_id';
+    const string F_AMOUNT = 'amount';
+    const string F_CURRENCY = 'currency';
+    const string F_SUMMARY = 'summary';
+    const string F_RETURN_URL = 'return_url';
+    const string F_RESULT_URL = 'result_url';
+    const string F_FIRST_NAME = 'firstname';
+    const string F_LAST_NAME = 'lastname';
+    const string F_EMAIL = 'email';
+    const string F_USER = 'user';
+    const string F_TIMESTAMP = 'timestamp';
+    const string F_SIGNATURE = 'signature';
+    const string F_POST_PROCESSOR = 'post_processor';
+    const string F_POST_PROCESS_DATA = 'post_process_data';
+    const string F_LANGUAGE = 'language';
+    const string F_OPTIONS = 'options';
 
-    const DEFAULT_CURRENCY = 'EUR';
+    const string DEFAULT_CURRENCY = 'EUR';
 
     private array $data = [];
 
