@@ -21,7 +21,7 @@
       "ext-openssl": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.0",
+        "phpunit/phpunit": "12.5.22",
         "ext-json": "*"
     }
 }
